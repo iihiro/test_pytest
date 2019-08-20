@@ -43,3 +43,17 @@ def test_assert_1():
         raise ValueError
     with pytest.raises(ValueError):
         _target()
+
+class Client(object):
+    def setup_method(self, method):
+        print("setup_method called. (test: %s)" % (method.__name__))
+    
+    def func(self):
+        return 123
+
+    def teardown_method(self, method):
+        print("teardown_method called. (test: %s)" % (method.__name__))
+
+def test_3():
+    c = Client()
+    assert c.func() == 123
