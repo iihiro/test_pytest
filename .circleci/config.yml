@@ -32,7 +32,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest -v
+            pytest -v testci/
 
       - store_artifacts:
           path: test-reports
@@ -48,4 +48,5 @@ workflows:
               only:
                 - master
                 - develop
+
 
