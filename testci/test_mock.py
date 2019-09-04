@@ -57,4 +57,30 @@ def test_4():
     t = Target()
     assert t.clsmethod() == expected
 
+import platform
+
+@pytest.fixture()
+def sample_fixture2(monkeypatch):
+    monkeypatch.setattr('platform.system', lambda: "hogefuga")
+    yield
+
+@pytest.mark.usefixtures('sample_fixture2')
+def test_5():
+    print(platform.system())
+    assert True
+
+import mymodule
+    
+@pytest.fixture()
+def sample_fixture3(monkeypatch):
+    #monkeypatch.setattr('pygame.mixer.init', lambda: print("hogefuga"))
+    monkeypatch.setattr('pygame.mixer.init', lambda: None)
+    yield
+
+@pytest.mark.usefixtures('sample_fixture3')
+def test_6():
+    #pygame.mixer.init()
+    a = mymodule.MyClass()
+    assert True
+
 
